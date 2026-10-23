@@ -1,0 +1,176 @@
+:root {
+  /* Paleta base (aquí cambiarás los valores definitivos) */
+  --papaya-whip: #ffefcd;
+  --dusty-taupe: #a58e74;
+  --golden-apricot: #e09132;
+  --dark-khaki: #424530;
+
+  /* Colores semánticos (úsalos en el CSS nuevo) */
+  --color-bg: var(--papaya-whip);
+  --color-text: var(--dark-khaki);
+  --color-muted: var(--dusty-taupe);
+  --color-accent: var(--golden-apricot);
+  --color-glass: rgb(255 239 205 / 85%);
+  --color-on-photo: #fffdf8;
+
+  /* Tipografías */
+  --font-display: "Italiana", Georgia, serif;
+  --font-heading: "Cormorant Garamond Variable", Georgia, serif;
+  --font-body: "DM Sans Variable", Arial, sans-serif;
+  --font-phrase: "Jost Variable", Arial, sans-serif;
+  --font-accent: "WindSong", cursive;
+  --font-signature: "Allura";
+
+  /* Layout */
+  --container-width: 1440px;
+  --page-padding: clamp(20px, 5vw, 80px);
+  --header-height: 64px;
+
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "Ribes";
+  src: url("/public/font/Ribes-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --header-height: 58px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font-size: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.container {
+  width: min(100% - 2 * var(--page-padding), var(--container-width));
+  margin-inline: auto;
+}
+
+.page-top {
+  padding-top: var(--header-height);
+}
+
+/* Frases destacadas: único punto para cambiar su estilo */
+.phrase {
+  font-family: var(--font-phrase);
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1.7;
+  overflow-wrap: break-word;
+}
+
+/* Palabras destacadas en caligrafía */
+.phrase em {
+  font-family: var(--font-accent);
+  font-style: normal;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.2em;
+  line-height: 0.8;
+}
+
+::selection {
+  color: var(--color-bg);
+  background: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Salto de sección al hacer scroll (páginas que usan useSnapScroll) */
+html.snap-page {
+  scroll-snap-type: y mandatory;
+}
+
+.snap-page .snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.snap-page .site-footer {
+  scroll-snap-align: end;
+}

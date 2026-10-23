@@ -1,0 +1,19 @@
+.logo {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.07em;
+  color: currentColor;
+}
+
+.logo span {
+  color: var(--logo-dot, var(--color-muted));
+}
+
+.logo--md {
+  font-size: 1.75rem;
+}
+
+.logo--lg {
+  font-size: 2.8rem;
+}

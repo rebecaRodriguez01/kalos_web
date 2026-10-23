@@ -1,0 +1,42 @@
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding-block: 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: currentColor;
+  border-bottom: 1px solid currentColor;
+}
+
+.arrow-link svg {
+  width: 28px;
+  height: 10px;
+  transition: transform 250ms ease;
+}
+
+.arrow-link:hover svg,
+.arrow-link:focus-visible svg {
+  transform: translateX(6px);
+}
+
+/* Variante botón relleno */
+.arrow-link--solid {
+  padding: 18px 34px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--link-bg, var(--color-accent));
+  color: var(--link-fg, var(--color-text));
+  transition: filter 250ms ease;
+}
+
+.arrow-link--solid:hover {
+  filter: brightness(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-link svg {
+    transition: none;
+  }
+}

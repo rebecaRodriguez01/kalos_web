@@ -1,0 +1,353 @@
+/* ---------- Scroll snap (solo en Home) ---------- */
+html.snap-home {
+  scroll-snap-type: y mandatory;
+}
+
+.snap-home .hero,
+.snap-home .home-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* una sección por gesto, sin saltarse ninguna */
+}
+
+.snap-home .site-footer {
+  scroll-snap-align: end;
+}
+
+/* ---------- Base común ---------- */
+.home-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding-block: calc(var(--header-height) + 24px) 40px;
+  overflow: hidden;
+}
+
+
+.eyebrow {
+  margin: 0 0 24px;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ---------- 2. Manifiesto ---------- */
+.manifesto {
+  background: var(--dark-khaki);
+  color: var(--papaya-whip);
+}
+
+.manifesto-inner {
+  max-width: 62rem;
+}
+
+.manifesto-quote {
+  margin: 0 0 48px;
+}
+
+.manifesto-quote p {
+  font-family: "Ribes", cursive;
+  margin: 0 0 28px;
+  font-size: clamp(1.15rem, 3.4vw, 2.6rem);
+}
+
+.manifesto-quote em {
+  color: var(--golden-apricot);
+}
+
+.manifesto-signature {
+  font-family: var(--font-signature);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1;
+  color: var(--papaya-whip);
+  transform: rotate(-3deg);
+  transform-origin: left center;
+  margin-left: auto;
+  width: fit-content;
+  margin-top: 20px;
+}
+
+/* ---------- 3. Fundadores ---------- */
+.founders {
+  flex-direction: row;
+  justify-content: stretch;
+  padding: 0;
+  background: #fffaf0;
+}
+
+.founders-photo {
+  position: relative;
+  flex: 1 1 50%;
+}
+
+.founders-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.founders-text {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--header-height) + 24px) var(--page-padding) 48px;
+}
+
+.founders-text h2 {
+  font-family: "Ribes", cursive;
+  margin: 0 0 28px;
+  max-width: 26rem;
+  font-size: clamp(1.9rem, 3.2vw, 3.1rem);
+  font-weight: 300;
+  line-height: 1.18;
+}
+
+.founders-copy {
+  max-width: 24rem;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  opacity: 0.85;
+}
+
+@media (max-width: 800px) {
+  .founders {
+    flex-direction: column;
+  }
+
+  .founders-photo {
+    flex: 0 0 46svh;
+  }
+
+  .founders-text {
+    flex: 1 1 auto;
+    padding: 32px var(--page-padding) 40px;
+  }
+
+  .founders-text h2 {
+    font-size: clamp(1.7rem, 7vw, 2.2rem);
+  }
+}
+
+/* ---------- 4. Vídeo ---------- */
+.video-loop {
+  padding: 0;
+  background: var(--dark-khaki);
+}
+
+.video-loop video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* ---------- 5. Collage ---------- */
+.collage {
+  isolation: isolate;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+}
+
+.collage-grid {
+  --cols: 6;
+
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  align-content: start;
+  gap: 4px;
+  overflow: hidden;
+  background: var(--dark-khaki);
+}
+
+.collage-grid img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.collage::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgb(25 25 20 / 55%);
+}
+
+.collage-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: calc(var(--header-height) + 24px) var(--page-padding) 40px;
+}
+
+.collage-title {
+  font-family: "Ribes", cursive;
+  margin: 0;
+  font-size: clamp(3rem, 10vw, 9rem);
+  font-weight: 600;
+  line-height: 0.98;
+  color: var(--color-accent);
+  text-shadow: 0 2px 30px rgb(0 0 0 / 35%);
+}
+
+@media (max-width: 700px) {
+  .collage-grid {
+    .collage-grid {
+      --cols: 3;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .collage-grid {
+    --cols: 4;
+  }
+}
+
+/* ---------- 6. Reseñas ---------- */
+.reviews {
+  background: var(--color-bg);
+}
+
+.reviews-head {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.reviews-title {
+  font-family: "Ribes", cursive;
+  margin: 0 0 14px;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 300;
+}
+
+.reviews-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.stars {
+  color: var(--color-accent);
+  letter-spacing: 0.15em;
+}
+
+.reviews-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 28px;
+  border: 1px solid rgb(66 69 48 / 15%);
+}
+
+.review-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.review-author {
+  margin: auto 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.reviews-footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .reviews-head {
+    margin-bottom: 28px;
+  }
+
+  .reviews-list {
+    display: flex;
+    gap: 16px;
+    margin-inline: calc(var(--page-padding) * -1);
+    padding: 0 var(--page-padding) 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--page-padding);
+  }
+
+  .review-card {
+    flex: 0 0 82%;
+    scroll-snap-align: start;
+  }
+}
+
+/* ---------- 7. Reserva ---------- */
+.booking {
+  align-items: center;
+  background: var(--color-accent);
+  color: var(--dark-khaki);
+  text-align: center;
+}
+
+.booking-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.booking .eyebrow {
+  margin: 0;
+}
+
+.booking-title {
+  font-family: "Ribes", cursive;
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.6rem, 7vw, 6.5rem);
+  line-height: 1.02;
+}
+
+.booking .arrow-link--solid {
+  --link-bg: var(--dark-khaki);
+  --link-fg: var(--papaya-whip);
+}
+
+.booking-note {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}

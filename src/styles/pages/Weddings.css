@@ -1,0 +1,316 @@
+/* ---------- Base de sección ---------- */
+.wedding-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding-block: calc(var(--header-height) + 32px) 48px;
+  overflow: hidden;
+}
+
+/* Secciones más altas que la pantalla: scroll libre dentro de ellas */
+.snap-page .weddings-index,
+.snap-page .wedding-album {
+  scroll-snap-stop: normal;
+}
+
+/* ---------- Listado de bodas ---------- */
+.weddings-index {
+  justify-content: flex-start;
+  background: var(--color-bg);
+}
+
+.weddings-head {
+  margin-bottom: clamp(28px, 5vw, 56px);
+  text-align: center;
+}
+
+.weddings-head .eyebrow {
+  margin-bottom: 8px;
+}
+
+.weddings-title {
+  margin: 0;
+  font-size: clamp(1.3rem, 3.6vw, 2.6rem);
+}
+
+.weddings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: clamp(24px, 3vw, 40px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wedding-card {
+  display: block;
+}
+
+.wedding-card-media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--dark-khaki);
+}
+
+.wedding-card-media img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transition: transform 700ms ease;
+}
+
+.wedding-card:hover img,
+.wedding-card:focus-visible img {
+  transform: scale(1.04);
+}
+
+.wedding-card-name {
+  margin: 18px 0 4px;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.wedding-card-meta {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ---------- 1. Portada ---------- */
+.wedding-cover {
+  isolation: isolate;
+  justify-content: space-between;
+  padding-bottom: clamp(40px, 8vh, 96px);
+  color: var(--color-on-photo);
+}
+
+.wedding-cover-img {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.wedding-cover-overlay {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgb(25 25 20 / 65%),
+    rgb(25 25 20 / 12%) 60%
+  );
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.wedding-cover-title {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 8.5rem);
+  line-height: 1;
+}
+
+.wedding-cover-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ---------- 2. Su historia ---------- */
+.wedding-story {
+  flex-direction: row;
+  justify-content: stretch;
+  padding: 0;
+  background: var(--color-bg);
+}
+
+.wedding-story-photo {
+  position: relative;
+  flex: 1 1 50%;
+}
+
+.wedding-story-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.wedding-story-text {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--header-height) + 24px) var(--page-padding) 48px;
+}
+
+.wedding-story-title {
+  margin: 0 0 28px;
+  font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+}
+
+.wedding-story-copy {
+  max-width: 28rem;
+  margin: 0 0 1.2em;
+  font-size: 0.98rem;
+  line-height: 1.9;
+  opacity: 0.88;
+}
+
+@media (max-width: 800px) {
+  .wedding-story {
+    flex-direction: column;
+  }
+
+  .wedding-story-photo {
+    flex: 0 0 46svh;
+  }
+
+  .wedding-story-text {
+    flex: 1 1 auto;
+    padding: 32px var(--page-padding) 40px;
+  }
+}
+
+/* ---------- 3. Álbum ---------- */
+.wedding-album {
+  justify-content: flex-start;
+  background: var(--color-bg);
+}
+
+.album-title {
+  margin: 0 0 clamp(24px, 4vw, 48px);
+  text-align: center;
+  font-size: clamp(1.2rem, 3vw, 2.2rem);
+}
+
+/* Columnas tipo "mampostería": las fotos conservan su proporción, sin recortes */
+.album-grid {
+  columns: 3 260px;
+  column-gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.album-grid li {
+  margin-bottom: 14px;
+  break-inside: avoid;
+}
+
+.album-photo {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.album-photo img {
+  width: 100%;
+  height: auto;
+  transition: opacity 250ms ease;
+}
+
+.album-photo:hover img,
+.album-photo:focus-visible img {
+  opacity: 0.88;
+}
+
+/* ---------- 4. Film ---------- */
+.wedding-films {
+  background: var(--dark-khaki);
+  color: var(--papaya-whip);
+}
+
+.films-title {
+  margin: 0 0 40px;
+  text-align: center;
+  font-size: clamp(1.2rem, 3vw, 2.2rem);
+}
+
+.films-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.film {
+  margin: 0;
+}
+
+.film video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #000;
+}
+
+.film figcaption {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ---------- 5. Siguiente boda ---------- */
+.wedding-next {
+  isolation: isolate;
+  align-items: center;
+  text-align: center;
+  color: var(--color-on-photo);
+}
+
+.wedding-next-img {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.wedding-next-overlay {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgb(25 25 20 / 58%);
+}
+
+.wedding-next-name {
+  margin: 8px 0 32px;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 8vw, 6.5rem);
+  line-height: 1;
+}
+
+.wedding-next-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
