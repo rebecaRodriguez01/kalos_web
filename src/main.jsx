@@ -11,6 +11,7 @@ import "@fontsource-variable/jost";
 import "@fontsource/windsong";
 import "@fontsource/mrs-saint-delafield";
 import '@fontsource/allura';
+import "@fontsource/special-elite";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

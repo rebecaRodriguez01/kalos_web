@@ -1,21 +1,38 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { Link, Navigate, useParams } from "react-router";
 import useSnapScroll from "../hooks/useSnapScroll";
 import useSectionReveal from "../hooks/useSectionReveal";
 import ArrowLink from "../components/ui/ArrowLink";
 import Lightbox from "../components/ui/Lightbox";
+import LoopVideo from "../components/ui/LoopVideo";
+import TrailerDialog from "../components/ui/TrailerDialog";
 import { weddings, getWedding, formatDate } from "../data/weddings";
-import "../styles/pages/Weddings.css";
+import "../styles/pages/WeddingDetail.css";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
+/* ---------- 1. Portada con tráiler ---------- */
 function Cover({ wedding }) {
     const ref = useSectionReveal();
+    const [trailerOpen, setTrailerOpen] = useState(false);
+    const { trailer } = wedding;
 
     return (
         <section
             ref={ref}
             className="wedding-section snap-section wedding-cover"
         >
-            <img className="wedding-cover-img" src={wedding.photos[0]} alt="" />
+            {trailer?.loop ? (
+                <LoopVideo
+                    className="wedding-cover-media"
+                    src={trailer.loop}
+                    poster={wedding.photos[0]}
+                />
+            ) : (
+                <img className="wedding-cover-media" src={wedding.photos[0]} alt="" />
+            )}
             <div className="wedding-cover-overlay" aria-hidden="true" />
 
             <div className="container">
@@ -33,49 +50,151 @@ function Cover({ wedding }) {
                     {" · "}
                     {wedding.location}
                 </p>
+
+                {trailer?.full && (
+                    <div data-reveal>
+                        <button
+                            type="button"
+                            className="trailer-btn"
+                            onClick={() => setTrailerOpen(true)}
+                        >
+                            <span className="trailer-btn-icon" aria-hidden="true">
+                                ▶
+                            </span>
+                            Ver tráiler
+                        </button>
+                    </div>
+                )}
             </div>
+
+            {trailerOpen && (
+                <TrailerDialog
+                    src={trailer.full}
+                    poster={wedding.photos[0]}
+                    title={`Tráiler de ${wedding.couple}`}
+                    onClose={() => setTrailerOpen(false)}
+                />
+            )}
         </section>
     );
 }
 
+/* ---------- 2. Su historia: carta sobre foto ---------- */
 function Story({ wedding }) {
     const ref = useSectionReveal();
+
+    const details = [
+        { label: "Fecha", value: formatDate(wedding.date) },
+        { label: "Lugar", value: wedding.location },
+        ...wedding.details,
+    ];
 
     return (
         <section
             ref={ref}
             className="wedding-section snap-section wedding-story"
         >
-            <div className="wedding-story-photo">
-                <img
-                    src={wedding.photos[1] ?? wedding.photos[0]}
-                    alt={`${wedding.couple}`}
-                    loading="lazy"
-                    decoding="async"
-                />
-            </div>
 
-            <div className="wedding-story-text">
-                <p className="eyebrow" data-reveal>
-                    Su historia
-                </p>
-                <h2 className="phrase wedding-story-title" data-reveal>
-                    {wedding.couple}
-                </h2>
-                {wedding.story.map((paragraph, index) => (
-                    <p key={index} className="wedding-story-copy" data-reveal>
-                        {paragraph}
-                    </p>
-                ))}
+            <div className="story-shade" aria-hidden="true" />
+
+            <div className="container story-layout">
+                <div className="letter-wrap" data-reveal>
+                    <article className="letter">
+                        <p className="letter-date">{formatDate(wedding.date)}</p>
+                        <h2 className="letter-title">{wedding.couple}</h2>
+                        {wedding.story.map((paragraph, index) => (
+                            <p key={index} className="letter-copy">
+                                {paragraph}
+                            </p>
+                        ))}
+                        <p className="letter-sign">Con cariño, Kalos</p>
+                    </article>
+                </div>
+
+                <div className="story-side">
+                    <div className="polaroid-wrap" data-reveal>
+                        <figure className="polaroid">
+                            <img
+                                src={wedding.photos[2] ?? wedding.photos[0]}
+                                alt={wedding.couple}
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <figcaption>{wedding.couple}</figcaption>
+                        </figure>
+                    </div>
+
+                    <div className="ficha-wrap" data-reveal>
+                        <aside className="ficha" aria-label="Detalles de la boda">
+                            <h3>Detalles</h3>
+                            <dl>
+                                {details.map((item) => (
+                                    <div key={item.label}>
+                                        <dt>{item.label}</dt>
+                                        <dd>{item.value}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </aside>
+                    </div>
+                </div>
             </div>
         </section>
     );
 }
 
+/* ---------- 3. Álbum: scroll vertical, fotos rectas ---------- */
 function Album({ wedding }) {
     const ref = useSectionReveal();
+    const gridRef = useRef(null);
     const [openIndex, setOpenIndex] = useState(null);
-    const total = wedding.photos.length;
+
+    // Cada foto aparece suavemente al llegar a ella
+    useGSAP(
+        () => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                const photos = gsap.utils.toArray(".album-photo", gridRef.current);
+
+                gsap.set(photos, { autoAlpha: 0, y: 40 });
+
+                ScrollTrigger.batch(photos, {
+                    start: "top 90%",
+                    once: true,
+                    onEnter: (batch) =>
+                        gsap.to(batch, {
+                            autoAlpha: 1,
+                            y: 0,
+                            duration: 0.9,
+                            ease: "power3.out",
+                            stagger: 0.12,
+                        }),
+                });
+            });
+
+            return () => mm.revert();
+        },
+        { scope: gridRef }
+    );
+
+    // Las fotos cargan poco a poco y cambian la altura de la página:
+    // se recalculan las posiciones de las animaciones.
+    useEffect(() => {
+        const el = gridRef.current;
+        let frame;
+
+        const observer = new ResizeObserver(() => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(() => ScrollTrigger.refresh());
+        });
+
+        observer.observe(el);
+        return () => {
+            observer.disconnect();
+            cancelAnimationFrame(frame);
+        };
+    }, []);
 
     return (
         <>
@@ -84,15 +203,21 @@ function Album({ wedding }) {
                 className="wedding-section snap-section wedding-album"
             >
                 <div className="container">
+                    <h2 className="phrase album-title" data-reveal>
+                        Álbum
+                    </h2>
 
-
-                    <ul className="album-grid" data-reveal>
+                    <ul
+                        ref={gridRef}
+                        className="album"
+                        data-layout={wedding.albumLayout ?? "editorial"}
+                        aria-label="Fotos de la boda"
+                    >
                         {wedding.photos.map((src, index) => (
-                            <li key={src}>
+                            <li key={src} className="album-photo">
                                 <button
                                     type="button"
-                                    className="album-photo"
-                                    aria-label={`Ver foto ${index + 1} de ${total}`}
+                                    aria-label={`Ver foto ${index + 1} de ${wedding.photos.length}`}
                                     onClick={() => setOpenIndex(index)}
                                 >
                                     <img
@@ -121,6 +246,7 @@ function Album({ wedding }) {
     );
 }
 
+/* ---------- 4. Vídeos ---------- */
 function Films({ wedding }) {
     const ref = useSectionReveal();
 
@@ -157,6 +283,7 @@ function Films({ wedding }) {
     );
 }
 
+/* ---------- 5. Siguiente boda ---------- */
 function Next({ wedding }) {
     const ref = useSectionReveal();
     const index = weddings.findIndex((w) => w.slug === wedding.slug);

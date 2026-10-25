@@ -1,0 +1,643 @@
+/* ---------- Base de sección ---------- */
+.wedding-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding-block: calc(var(--header-height) + 32px) 48px;
+    overflow: hidden;
+}
+
+/* Si la sección es más alta que la pantalla, el scroll es libre dentro */
+@media (max-width: 900px) {
+    .snap-page .wedding-story {
+        scroll-snap-stop: normal;
+    }
+}
+
+/* ---------- 1. Portada ---------- */
+.wedding-cover {
+    isolation: isolate;
+    justify-content: space-between;
+    padding-bottom: clamp(40px, 8vh, 96px);
+    color: var(--color-on-photo);
+}
+
+.wedding-cover-media {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+}
+
+.wedding-cover-overlay {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgb(25 25 20 / 65%),
+            rgb(25 25 20 / 12%) 60%);
+}
+
+.back-link {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.wedding-cover-title {
+    margin: 0 0 16px;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 8.5rem);
+    line-height: 1;
+}
+
+.wedding-cover-meta {
+    margin: 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.trailer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    padding: 12px 28px 12px 14px;
+    border: 1px solid rgb(255 253 248 / 70%);
+    border-radius: 999px;
+    background: rgb(255 253 248 / 10%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: inherit;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 250ms ease;
+}
+
+.trailer-btn:hover {
+    background: rgb(255 253 248 / 22%);
+}
+
+.trailer-btn-icon {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding-left: 2px;
+    border-radius: 50%;
+    background: var(--color-on-photo);
+    color: var(--dark-khaki);
+    font-size: 0.6rem;
+}
+
+/* Ventana del tráiler */
+.trailer {
+    width: min(94vw, 1100px);
+    max-width: none;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+    background: #000;
+}
+
+.trailer::backdrop {
+    background: rgb(25 25 20 / 92%);
+}
+
+.trailer video {
+    display: block;
+    width: 100%;
+    max-height: 82svh;
+}
+
+.trailer-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgb(255 239 205 / 40%);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--papaya-whip);
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* ---------- 2. Su historia (carta sobre foto) ---------- */
+.wedding-story {
+    --paper: #f4e8cf;
+    background: var(--paper);
+    color: #3a3524;
+}
+
+
+.story-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+    gap: clamp(32px, 6vw, 96px);
+    align-items: center;
+}
+
+.story-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 44px;
+}
+
+@media (max-width: 900px) {
+    .story-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Cinta adhesiva */
+.polaroid::before,
+.ficha::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    z-index: 2;
+    width: 110px;
+    height: 30px;
+    background: rgb(226 196 140 / 62%);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 18%);
+    transform: translateX(-50%) rotate(-3deg);
+}
+
+/* Carta */
+.letter-wrap {
+    position: relative;
+}
+
+.letter {
+    padding: clamp(36px, 5vw, 64px) clamp(28px, 5vw, 64px);
+    background: var(--paper);
+    color: #3a3524;
+}
+
+.letter-date {
+    margin: 0 0 6px;
+    font-family: var(--font-typewriter);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.65;
+}
+
+.letter-title {
+    margin: 0 0 24px;
+    font-family: var(--font-accent);
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1;
+}
+
+.letter-copy {
+    margin: 0 0 1em;
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+    line-height: 1.7;
+}
+
+.letter-sign {
+    margin: 28px 0 0;
+    font-family: var(--font-accent);
+    font-size: 2rem;
+    text-align: right;
+}
+
+/* Polaroid pegada */
+.polaroid-wrap {
+    width: min(100%, 250px);
+}
+
+.polaroid {
+    position: relative;
+    margin: 0;
+    padding: 12px 12px 48px;
+    background: #fffdf8;
+    box-shadow: 0 14px 28px rgb(66 69 48 / 22%);
+    transform: none;
+}
+
+.polaroid::before {
+    width: 84px;
+    transform: translateX(-50%) rotate(-2deg);
+}
+
+.polaroid img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.polaroid figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 6px;
+    left: 0;
+    text-align: center;
+    font-family: var(--font-accent);
+    font-size: 1.9rem;
+    line-height: 1;
+    color: #3a3524;
+}
+
+/* Ficha de detalles (máquina de escribir) */
+.ficha-wrap {
+    width: min(100%, 320px);
+}
+
+.ficha {
+    position: relative;
+    padding: 24px 24px 20px;
+    background: #f9f1de;
+    box-shadow: 0 14px 28px rgb(66 69 48 / 22%);
+    color: #3a3524;
+    font-family: var(--font-typewriter);
+    font-size: 0.8rem;
+    transform: none;
+}
+
+.ficha::before {
+    width: 90px;
+    transform: translateX(-50%) rotate(-2deg);
+}
+
+.ficha h3 {
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgb(58 53 36 / 40%);
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.ficha dl {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+}
+
+.ficha dt {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.ficha dd {
+    margin: 2px 0 0;
+}
+
+/* Tablet y móvil: foto y detalles uno al lado del otro, más pequeños */
+@media (max-width: 900px) {
+    .story-side {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(14px, 4vw, 28px);
+    }
+
+    .polaroid-wrap {
+        flex: 0 0 42%;
+        width: auto;
+        max-width: 230px;
+    }
+
+    .ficha-wrap {
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+        max-width: 300px;
+    }
+
+    .polaroid {
+        padding: 8px 8px 34px;
+    }
+
+    .polaroid::before {
+        top: -9px;
+        width: 60px;
+        height: 22px;
+    }
+
+    .polaroid figcaption {
+        bottom: 4px;
+        font-size: 1.4rem;
+    }
+
+    .ficha {
+        padding: 16px 14px 14px;
+        font-size: 0.68rem;
+    }
+
+    .ficha::before {
+        top: -9px;
+        width: 64px;
+        height: 22px;
+    }
+
+    .ficha h3 {
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        font-size: 0.7rem;
+    }
+
+    .ficha dl {
+        gap: 8px;
+    }
+
+    .ficha dt {
+        font-size: 0.56rem;
+    }
+}
+
+/* ---------- 3. Álbum (scroll vertical) ---------- */
+.wedding-album {
+    justify-content: flex-start;
+    padding-bottom: 96px;
+    background: var(--color-bg);
+}
+
+/* Es más alta que la pantalla: el scroll es libre dentro */
+.snap-page .wedding-album {
+    scroll-snap-stop: normal;
+}
+
+.album-title {
+    margin: 0 0 clamp(32px, 6vw, 72px);
+    text-align: center;
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+}
+
+.album {
+    display: grid;
+    column-gap: clamp(12px, 2vw, 28px);
+    row-gap: clamp(28px, 6vw, 84px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.album-photo button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    background: none;
+    cursor: zoom-in;
+}
+
+.album-photo img {
+    width: 100%;
+    height: auto;
+    transition: transform 900ms ease;
+}
+
+.album-photo button:hover img,
+.album-photo button:focus-visible img {
+    transform: scale(1.03);
+}
+
+/* masonry: las fotos se colocan en columnas */
+.album[data-layout="masonry"] .album-photo {
+    margin-bottom: clamp(12px, 2vw, 28px);
+    break-inside: avoid;
+}
+
+/* ----- Ordenador y tablet ----- */
+@media (min-width: 701px) {
+    .album {
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    /* editorial */
+    .album[data-layout="editorial"] .album-photo:nth-child(7n + 1) {
+        grid-column: 1 / span 7;
+        align-self: start;
+    }
+
+    .album[data-layout="editorial"] .album-photo:nth-child(7n + 2) {
+        grid-column: 9 / span 4;
+        align-self: end;
+    }
+
+    .album[data-layout="editorial"] .album-photo:nth-child(7n + 3) {
+        grid-column: 3 / span 5;
+        align-self: start;
+    }
+
+    .album[data-layout="editorial"] .album-photo:nth-child(7n + 4) {
+        grid-column: 9 / span 4;
+        align-self: center;
+    }
+
+    .album[data-layout="editorial"] .album-photo:nth-child(7n + 5) {
+        grid-column: 2 / span 9;
+        align-self: start;
+    }
+
+    .album[data-layout="editorial"] .album-photo:nth-child(7n + 6) {
+        grid-column: 1 / span 4;
+        align-self: start;
+    }
+
+    .album[data-layout="editorial"] .album-photo:nth-child(7n + 7) {
+        grid-column: 6 / span 7;
+        align-self: center;
+    }
+
+    /* masonry */
+    .album[data-layout="masonry"] {
+        display: block;
+        columns: 3;
+        column-gap: clamp(12px, 2vw, 28px);
+    }
+
+    /* stagger */
+    .album[data-layout="stagger"] {
+        grid-template-columns: 7fr 5fr;
+        column-gap: clamp(24px, 5vw, 80px);
+    }
+
+    .album[data-layout="stagger"] .album-photo {
+        align-self: start;
+    }
+
+    .album[data-layout="stagger"] .album-photo:nth-child(even) {
+        margin-top: clamp(48px, 10vw, 160px);
+    }
+
+    /* cascade */
+    .album[data-layout="cascade"] .album-photo {
+        align-self: start;
+    }
+
+    .album[data-layout="cascade"] .album-photo:nth-child(4n + 1) {
+        grid-column: 1 / span 5;
+    }
+
+    .album[data-layout="cascade"] .album-photo:nth-child(4n + 2) {
+        grid-column: 4 / span 5;
+    }
+
+    .album[data-layout="cascade"] .album-photo:nth-child(4n + 3) {
+        grid-column: 8 / span 5;
+    }
+
+    .album[data-layout="cascade"] .album-photo:nth-child(4n + 4) {
+        grid-column: 3 / span 6;
+    }
+
+    /* rhythm */
+    .album[data-layout="rhythm"] .album-photo:nth-child(3n + 1) {
+        grid-column: 2 / span 10;
+    }
+
+    .album[data-layout="rhythm"] .album-photo:nth-child(3n + 2) {
+        grid-column: 1 / span 5;
+        align-self: start;
+    }
+
+    .album[data-layout="rhythm"] .album-photo:nth-child(3n + 3) {
+        grid-column: 7 / span 6;
+        align-self: end;
+    }
+}
+
+/* ----- Móvil: más sencillo, una foto por fila con pequeños desplazamientos ----- */
+@media (max-width: 700px) {
+    .album {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .album .album-photo:nth-child(3n + 1) {
+        grid-column: 1 / span 5;
+        align-self: start;
+    }
+
+    .album .album-photo:nth-child(3n + 2) {
+        grid-column: 2 / span 5;
+        align-self: start;
+    }
+
+    .album .album-photo:nth-child(3n + 3) {
+        grid-column: 1 / span 6;
+        align-self: start;
+    }
+
+    /* masonry en móvil: dos columnas */
+    .album[data-layout="masonry"] {
+        display: block;
+        columns: 2;
+        column-gap: 10px;
+    }
+
+    .album[data-layout="masonry"] .album-photo {
+        margin-bottom: 10px;
+    }
+}
+
+/* ---------- 4. Film ---------- */
+.wedding-films {
+    background: var(--dark-khaki);
+    color: var(--papaya-whip);
+}
+
+.films-title {
+    margin: 0 0 40px;
+    text-align: center;
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+}
+
+.films-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.film {
+    margin: 0;
+}
+
+.film video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #000;
+}
+
+.film figcaption {
+    margin-top: 12px;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* ---------- 5. Siguiente boda ---------- */
+.wedding-next {
+    isolation: isolate;
+    align-items: center;
+    text-align: center;
+    color: var(--color-on-photo);
+}
+
+.wedding-next-img {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+}
+
+.wedding-next-overlay {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: rgb(25 25 20 / 58%);
+}
+
+.wedding-next-name {
+    margin: 8px 0 32px;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 8vw, 6.5rem);
+    line-height: 1;
+}
+
+.wedding-next-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .album-photo img,
+    .trailer-btn {
+        transition: none;
+    }
+}
