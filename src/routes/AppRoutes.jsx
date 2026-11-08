@@ -17,6 +17,8 @@ import Contact from "../pages/Contact";
 import Weddings from "../pages/Weddings";
 import WeddingDetail from "../pages/WeddingDetail";
 
+import WhatsAppButton from "../components/layout/WhatsAppButton";
+
 function MainLayout() {
   return (
     <>
@@ -25,6 +27,7 @@ function MainLayout() {
       <Outlet />
 
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }
