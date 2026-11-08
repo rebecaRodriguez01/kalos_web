@@ -11,12 +11,11 @@ import Footer from "../components/layout/Footer";
 import ScrollToTop from "../components/layout/ScrollToTop";
 
 import Home from "../pages/Home";
-import Portfolio from "../pages/Portfolio";
 import Services from "../pages/Services";
 import Contact from "../pages/Contact";
 import Weddings from "../pages/Weddings";
 import WeddingDetail from "../pages/WeddingDetail";
-
+import About from "../pages/About";
 import WhatsAppButton from "../components/layout/WhatsAppButton";
 
 function MainLayout() {
@@ -25,6 +24,7 @@ function MainLayout() {
       <Header />
 
       <Outlet />
+      
 
       <Footer />
       <WhatsAppButton />
@@ -42,7 +42,7 @@ export default function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/bodas" element={<Weddings />} />
           <Route path="/bodas/:slug" element={<WeddingDetail />} />
-          <Route path="/conocenos" element={<Portfolio />} />
+          <Route path="/conocenos" element={<About />} />
           <Route path="/servicios" element={<Services />} />
           <Route path="/contacto" element={<Contact />} />
         </Route>

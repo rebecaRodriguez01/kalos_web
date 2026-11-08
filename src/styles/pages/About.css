@@ -1,0 +1,259 @@
+/* ---------- Base de sección ---------- */
+.about-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding-block: calc(var(--header-height) + 32px) 48px;
+  overflow: hidden;
+}
+
+.tone-paper {
+  background: var(--color-bg);
+}
+
+.tone-sand {
+  background: #f4e8cf;
+}
+
+/* ---------- 1. Portada ---------- */
+.about-cover {
+  isolation: isolate;
+  justify-content: flex-end;
+  padding-bottom: clamp(40px, 9vh, 104px);
+  color: var(--color-on-photo);
+}
+
+.about-cover-img {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.about-cover-overlay {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgb(25 25 20 / 65%),
+    rgb(25 25 20 / 12%) 60%
+  );
+}
+
+.about-cover-title {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 8.5rem);
+  line-height: 1;
+}
+
+.about-tagline {
+  margin: 0;
+  font-size: clamp(0.95rem, 2.4vw, 1.5rem);
+}
+
+/* ---------- 2-4. Capítulos ---------- */
+.about-chapter {
+  flex-direction: row;
+  justify-content: stretch;
+  padding: 0;
+  color: var(--color-text);
+}
+
+.about-chapter.is-reverse {
+  flex-direction: row-reverse;
+}
+
+.about-chapter-photo {
+  position: relative;
+  flex: 1 1 50%;
+}
+
+.about-chapter-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.about-chapter-text {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--header-height) + 24px) var(--page-padding) 48px;
+}
+
+.about-number {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1;
+  opacity: 0.25;
+}
+
+.about-chapter-title {
+  margin: 0 0 28px;
+  font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+}
+
+.about-chapter-copy {
+  max-width: 28rem;
+  margin: 0 0 1.2em;
+  font-size: 0.98rem;
+  line-height: 1.9;
+  opacity: 0.88;
+}
+
+@media (max-width: 800px) {
+  .about-chapter,
+  .about-chapter.is-reverse {
+    flex-direction: column;
+  }
+
+  .about-chapter-photo {
+    flex: 0 0 46svh;
+  }
+
+  .about-chapter-text {
+    flex: 1 1 auto;
+    padding: 32px var(--page-padding) 40px;
+  }
+
+  /* Si la sección es más alta que la pantalla, el scroll es libre dentro */
+  .snap-page .about-chapter {
+    scroll-snap-stop: normal;
+  }
+}
+
+/* ---------- 5. Visión ---------- */
+.about-vision {
+  background: var(--dark-khaki);
+  color: var(--papaya-whip);
+}
+
+.about-statement {
+  max-width: 36ch;
+  margin: 0 0 clamp(40px, 7vw, 80px);
+  font-size: clamp(1.3rem, 3.6vw, 2.8rem);
+}
+
+.about-statement em {
+  color: var(--golden-apricot);
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.principles li {
+  padding-top: 20px;
+  border-top: 1px solid rgb(255 239 205 / 28%);
+}
+
+.principles h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+}
+
+.principles p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  opacity: 0.85;
+}
+
+@media (max-width: 800px) {
+  .principles {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .snap-page .about-vision {
+    scroll-snap-stop: normal;
+  }
+}
+
+/* ---------- 6. Detrás de cámara ---------- */
+.about-behind {
+  background: var(--color-bg);
+}
+
+.about-behind-title {
+  margin: 0 0 clamp(28px, 5vw, 56px);
+  text-align: center;
+  font-size: clamp(1.2rem, 3vw, 2.2rem);
+}
+
+.behind-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 2.4vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.behind-grid li:nth-child(2) {
+  margin-top: clamp(24px, 6vw, 72px);
+}
+
+.behind-grid figure {
+  margin: 0;
+}
+
+.behind-grid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.behind-grid figcaption {
+  margin-top: 12px;
+  font-family: var(--font-typewriter);
+  font-size: clamp(0.58rem, 1.2vw, 0.75rem);
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+}
+
+/* ---------- 7. Cierre ---------- */
+.about-close {
+  align-items: center;
+  background: #f4e8cf;
+  text-align: center;
+}
+
+.about-close-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 4vw, 40px);
+}
+
+.about-close-text {
+  max-width: 24ch;
+  margin: 0;
+  font-size: clamp(1.2rem, 3.4vw, 2.6rem);
+}
+
+/* Nombre con letra fina de firma */
+.about-signature {
+  margin: 0;
+  font-family: var(--font-accent);
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  line-height: 1;
+  color: var(--dark-khaki);
+}

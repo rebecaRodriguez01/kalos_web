@@ -19,7 +19,7 @@ export default function Manifesto() {
         <footer className="manifesto-signature">Keyla Leyva</footer>
         </blockquote>
 
-        <ArrowLink to="/portfolio" data-reveal>
+        <ArrowLink to="/servicios" data-reveal>
           Ver portfolio
         </ArrowLink>
       </div>
